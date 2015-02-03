@@ -1,0 +1,35 @@
+html
+include jquery1 
+vars ?turtle - Hello, Fred,,
+		?avacado - goodbye
+def %post
+	h1 - @title
+	div #postWrapper
+		@content
+def %footer
+	div #footer - @copyright
+css
+	body{
+		background-color: blue;
+	}
+head
+	title - hello
+	
+body
+	h1 - hello
+	h2 - ?turtle
+	h3 - ?avacado
+	coffeescript
+		alert 'fred'
+	h1
+	
+	div
+	%post
+		@title - avacado
+		@content
+			p
+				once upon a time there was a very 
+				nice lady named Wilfred
+			p
+				she liked cats. She had them everywhere.
+		

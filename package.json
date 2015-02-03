@@ -1,0 +1,28 @@
+{
+  "name": "talapa",
+  "version": "0.3.16",
+  "description": "a clean html preprocessor",
+  "main": "./lib/main.js",
+  "directories": {
+    "doc": "doc",
+    "example": "example"
+  },
+  "dependencies": {
+    "coffee-script": "^1.9.0",
+    "marked": "^0.3.2",
+    "node-sass": "^2.0.0-beta"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "talapa": "./bin/index.js"
+  },
+  "keywords": [
+    "html",
+    "preprocessor"
+  ],
+  "author": "Anthony Dellinger <dibillilia@gmail.com> (http://www.talapa.info)",
+  "license": "ISC"
+}
