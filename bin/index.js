@@ -119,6 +119,9 @@ function convertFile(origFile, compFile, same) {
 function convertDir(origDir, compDir) {
 	var files = fs.readdirSync(origDir);
 	files.forEach(function(file){
+		if (file.substr(0, 1) == '_') {
+			return;	
+		}
 		if (path.extname(file)) {
 			convertFile(path.join(origDir, file), path.join(compDir, file));
 		} else {
@@ -143,6 +146,9 @@ function watchDirectory (origDir, compDir) {
 	var same = false;
 	if (origDir == compDir) { same = true; }
 	files.forEach(function(file) {
+		if (file.substr(0, 1) == '_') {
+			return;	
+		}
 		if (path.extname(file)) {
 			convertFile(path.join(origDir, file), path.join(compDir, file), same);
 			watchFile(path.join(origDir, file), path.join(compDir, file), same);
