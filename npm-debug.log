@@ -7,23 +7,6 @@
 3 info using node@v0.10.33
 4 verbose node symlink C:\Program Files\nodejs\\node.exe
 5 error Error: Git working directory not clean.
-5 error M bin/index.js
-5 error M lib/languageChooser.js
-5 error D node_modules/.bin/talapa
-5 error D node_modules/.bin/talapa.cmd
-5 error D node_modules/talapa/README.md
-5 error D node_modules/talapa/bin/index.js
-5 error D node_modules/talapa/example/example.talapa
-5 error D node_modules/talapa/lib/coffeescript.js
-5 error D node_modules/talapa/lib/htmlCompiler.js
-5 error D node_modules/talapa/lib/inclusions.js
-5 error D node_modules/talapa/lib/languageChooser.js
-5 error D node_modules/talapa/lib/main.js
-5 error D node_modules/talapa/lib/sass.js
-5 error D node_modules/talapa/lib/test.js
-5 error D node_modules/talapa/lib/xmlCompiler.js
-5 error D node_modules/talapa/package.json
-5 error D node_modules/talapa/talapa-0.3.8.tgz
 5 error M npm-debug.log
 5 error     at C:\Program Files\nodejs\node_modules\npm\lib\version.js:91:33
 5 error     at ChildProcess.exithandler (child_process.js:646:7)
