@@ -57,7 +57,6 @@ if (isDefault) {
 
 function convertFile(origFile, compFile, same) {
 	console.log('converting', origFile);
-	var beginning = origFile;
 	var data = fs.readFileSync(origFile)
 	var code;
 	switch(path.extname(origFile)){
@@ -104,11 +103,10 @@ function convertFile(origFile, compFile, same) {
 			}
 			break;
 		default:
-			if (same) {var leave = true;}
 			code = data.toString();
 			break;
 	}
-	if (leave) { return; }
+	if (same) { return; }
 	if (print) {  //they told us to print instead of writing
 		console.log(code);
 	} else {
@@ -119,10 +117,8 @@ function convertFile(origFile, compFile, same) {
 function convertDir(origDir, compDir) {
 	var files = fs.readdirSync(origDir);
 	files.forEach(function(file){
-		if (file.substr(0, 1) == '_') {
-			return;	
-		}
-		if (path.extname(file)) {
+		console.log('------------------------------------------------' + file);
+		try{if (path.extname(file)) {
 			convertFile(path.join(origDir, file), path.join(compDir, file));
 		} else {
 			if (!fs.existsSync(path.join(compDir, file))) {
@@ -130,6 +126,9 @@ function convertDir(origDir, compDir) {
 			}
 			convertDir(path.join(origDir, file), path.join(compDir, file)); 
 		}
+		   } catch (e) {
+			   console.log(e);
+		   }
 	});
 }
 
@@ -145,16 +144,19 @@ function watchDirectory (origDir, compDir) {
 	var files = fs.readdirSync(origDir);
 	var same = false;
 	if (origDir == compDir) { same = true; }
+	console.log(files);
 	files.forEach(function(file) {
-		if (file.substr(0, 1) == '_') {
-			return;	
-		}
-		if (path.extname(file)) {
-			convertFile(path.join(origDir, file), path.join(compDir, file), same);
-			watchFile(path.join(origDir, file), path.join(compDir, file), same);
-		} else {
-			convertDir(path.join(origDir, file), path.join(compDir, file));
-			watchDirectory(path.join(origDir, file), path.join(compDir, file));
+		console.log('------------------------------------------------' + file);
+		if (file.charAt(0) !== '_') {
+			if (path.extname(file)) {	
+				convertFile(path.join(origDir, file), path.join(compDir, file), same);
+				watchFile(path.join(origDir, file), path.join(compDir, file), same);
+			} else {
+				convertDir(path.join(origDir, file), path.join(compDir, file));
+				watchDirectory(path.join(origDir, file), path.join(compDir, file));
+			}
+		} else{
+			return '';
 		}
 	});
 }
