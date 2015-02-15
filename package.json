@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "coffee-script": "^1.9.0",
+    "colors": "^1.0.3",
     "marked": "^0.3.2",
     "node-sass": "^2.0.0-beta"
   },

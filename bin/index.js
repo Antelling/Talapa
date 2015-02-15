@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
 var send = require('../lib/languageChooser.js');
+var colors = require('colors');
+
 //code to read and watch files and directories
 //read a file
 var fs = require('fs');
@@ -60,7 +62,7 @@ function convertFile(origFile, compFile, same) {
 	switch(path.extname(origFile)){
 		case '.talapa':
 			if (!skipTal) {
-				console.log('compiling', origFile);
+				console.log('compiling'.blue, origFile);
 				compFile = compFile.replace('.talapa', '.html');
 				code = send.recieve(data.toString(), false, false, path.dirname(origFile));
 				same = false;
@@ -71,7 +73,7 @@ function convertFile(origFile, compFile, same) {
 		case '.sass':
 		case '.scss':
 			if (!skipSass) {
-				console.log('compiling', origFile);
+				console.log('compiling'.blue, origFile);
 				compFile = compFile.replace('.sass', '.css');
 				if (!sass) { var sass = require('../lib/sass.js'); }
 				code = sass.compile(data.toString());
@@ -83,7 +85,7 @@ function convertFile(origFile, compFile, same) {
 		case '.coffee':
 		case '.litcoffee':
 			if (!skipCoffee) {
-				console.log('compiling', origFile);
+				console.log('compiling'.blue, origFile);
 				compFile = compFile.replace('.coffee', '.js').replace('.litcoffee', '.js');
 				if (!coffee) { var coffee = require('../lib/coffeescript.js'); }
 				code = coffee.compile(data.toString());
@@ -95,7 +97,7 @@ function convertFile(origFile, compFile, same) {
 		case '.md':
 		case '.markdown':
 			if (!skipMarkdown) {
-				console.log('compiling', origFile);
+				console.log('compiling'.blue, origFile);
 				compFile = compFile.replace('.md', '.html').replace('.markdown', '.html');
 				if (!marked) { var marked = require('marked'); }
 				code = marked(data.toString());
@@ -112,6 +114,7 @@ function convertFile(origFile, compFile, same) {
 	if (print) {  //they told us to print instead of writing
 		console.log(code);
 	} else {
+		console.log('saving'.green, compFile);
 		fs.writeFileSync(compFile, code);
 	}
 }
@@ -131,32 +134,37 @@ function convertDir(origDir, compDir) {
 }
 
 function watchFile(origFile, compFile, same) {
+	if ('.markdown .md .coffee .litcoffee .sass .scss .talapa'.indexOf(path.extname(origFile)) == -1 && same || origFile.charAt(0) == '_') {
+		//so it's either not a file that needs to be compiled and we are in the same directory, or it starts with an underscore
+		return;
+	}
+	console.log('watching'.cyan, origFile);
+	var first = true;
 	fs.watch(origFile, function (event) {
-		console.log('watching', origFile);
+		if(first){
+			first = false;
+			return
+		}
 		if (event == 'change') {
-			console.log(origFile, 'saved');
 			convertFile(origFile, compFile, same);
 		}
 	});
-}
+}	
 
 function watchDirectory (origDir, compDir) {
 	var files = fs.readdirSync(origDir);
 	var same = false;
 	if (origDir == compDir) { same = true; }
-	console.log(files);
 	files.forEach(function(file) {
 		if (file.charAt(0) !== '_') {
-			console.log('not skipping', file, '----------------------');
 			if (path.extname(file)) {
-				console.log('this is a file', file, 'yaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaay');
 				convertFile(path.join(origDir, file), path.join(compDir, file), same);
 				watchFile(path.join(origDir, file), path.join(compDir, file), same);
 			} else {
 				watchDirectory(path.join(origDir, file), path.join(compDir, file));
 			}
 		} else{
-			console.log('skipping', file, '88888888888888888888888888');
+			console.log('skipping'.blue, file);
 		}
 	});
 }
