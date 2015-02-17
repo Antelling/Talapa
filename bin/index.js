@@ -28,7 +28,7 @@ if (contains.indexOf(' -xt ') != -1 || contains.indexOf('--ignoreTalapa') != -1)
 
 process.argv.forEach(function(arg){
 	if (arg.substr(0, 3) === '-x-') {
-		dirsToIgnore = dirsToIgnore + ' ' + arg.substr(4) + ' ';
+		dirsToIgnore = dirsToIgnore + ' ' + arg.substr(3) + ' ';
 	}
 }); //set up the dirs to skip
 
@@ -116,7 +116,7 @@ function convertFile(origFile, compFile, same) {
 			}
 			break;
 		default:
-			code = data.toString();
+			code = data;
 			break;
 	}
 	if (same) { return; }
