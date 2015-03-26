@@ -3,7 +3,7 @@ A platform agnostic HTML precompiler.
 
 ---
 
-**March 25 1.1.0 Update**
+**March 26 1.1.0 Update**
 
 - The free server hosting the website has been moved and upgraded. No more downtime, hopefully.
 - **Every reference of sass has been replaced with scss, because node-sass can't compile sass, and saying it could is confusing. Talapa won't touch sass files, and the sass keyword is now scss.**
