@@ -12,6 +12,12 @@ css
 	body{
 		background-color: blue;
 	}
+scss
+	body{
+		a{
+			color:red;
+		}
+	}
 head
 	title - hello
 	

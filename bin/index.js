@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var send = require('../lib/languageChooser.js');
+var send = require('../lib/lexer.js');
 var colors = require('colors');
 var dirsToIgnore = ' ';
 var fs = require('fs');
@@ -12,11 +12,11 @@ var contains = ' ' + process.argv.join(' ') + ' ';
 
 if (contains.indexOf(' -ot ') != -1 || contains.indexOf('--onlyThis') != -1) {
 	skipDIR = true;
-}    //skip sass
+}    //skip scss
 
-if (contains.indexOf(' -xs ') != -1 || contains.indexOf('--ignoreSASS') != -1) {
-	var skipSass = true;
-}    //skip sass
+if (contains.indexOf(' -xs ') != -1 || contains.indexOf('--ignorescss') != -1) {
+	var skipscss = true;
+}    //skip scss
 
 if (contains.indexOf(' -xc ') != -1 || contains.indexOf('--ignoreCoffeescript') != -1) {
 	var skipCoffee = true;
@@ -66,26 +66,26 @@ if (isDefault) {
 }   //they didn't specify anything, so I'm just going to go and assume its two files
 
 function convertFile(origFile, compFile, same) {
-	var data = fs.readFileSync(origFile)
+	var data = fs.readFileSync(origFile);
 	var code;
 	switch(path.extname(origFile)){
 		case '.talapa':
 			if (!skipTal) {
 				console.log('compiling'.cyan, origFile);
 				compFile = compFile.replace('.talapa', '.html');
-				code = send.recieve(data.toString(), false, false, path.dirname(origFile));
+				code = send.receive(data.toString(), false, false, path.dirname(origFile));
 				same = false;
 			} else {
 				code = data.toString();
 			}
 			break;
-		case '.sass':
 		case '.scss':
-			if (!skipSass) {
+		case '.scss':
+			if (!skipscss) {
 				console.log('compiling'.cyan, origFile);
-				compFile = compFile.replace('.sass', '.css');
-				if (!sass) { var sass = require('../lib/sass.js'); }
-				code = sass.compile(data.toString());
+				compFile = compFile.replace('.scss', '.css').replace('.scss', '.css');
+				if (!scss) { var scss = require('../lib/scss.js'); }
+				code = scss.compile(data.toString());
 				same = false;
 			} else {
 				code = data.toString();
@@ -162,7 +162,7 @@ function convertDir(origDir, compDir) {
 }
 
 function watchFile(origFile, compFile, same) {
-	if ('.markdown .md .coffee .litcoffee .sass .scss .talapa'.indexOf(path.extname(origFile)) == -1 && same || origFile.charAt(0) == '_') {
+	if ('.markdown .md .coffee .litcoffee .scss .scss .talapa'.indexOf(path.extname(origFile)) == -1 && same || origFile.charAt(0) == '_') {
 		//so it's either not a file that needs to be compiled and we are in the same directory, or it starts with an underscore
 		return;
 	}

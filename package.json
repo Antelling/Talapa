@@ -24,6 +24,16 @@
     "html",
     "preprocessor"
   ],
-  "author": "Anthony Dellinger <dibillilia@gmail.com> (http://www.talapa.info)",
-  "license": "ISC"
+  "author": {
+    "name": "Anthony Dellinger",
+    "email": "dibillilia@gmail.com",
+    "url": "http://www.talapa.info"
+  },
+  "license": "ISC",
+  "readme": "Talapa is a clean html precompiler. Talapa is based around whitespace.\r\n\r\n\thtml \r\n\tsass\r\n\t\tbody{\r\n\t\t\ta{\r\n\t\t\t\tbackground-color: blue;\r\n\t\t\t}\r\n\t\t}\r\n\thead\r\n\t\ttitle - Example Website\r\n\tbody\r\n\t\tdiv #header\r\n\t\t\th1 - hello\r\n\t\tcoffeescript\r\n\t\t\talert \"welcome to Talapa\"\r\n\t\t\t\r\nDocumentation and online compilation can be found <a href=\"www.talapa.info\">here</a>.\r\n\r\n",
+  "readmeFilename": "README.md",
+  "_id": "talapa@1.0.0",
+  "_shasum": "6fe99be84b2904008531319aad2240f46b9f97b6",
+  "_resolved": "../talapa/talapa-1.0.0.tgz",
+  "_from": "../talapa/talapa-1.0.0.tgz"
 }
