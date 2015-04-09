@@ -1,6 +1,6 @@
 {
   "name": "talapa",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "a clean html preprocessor",
   "main": "./lib/main.js",
   "directories": {
