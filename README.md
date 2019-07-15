@@ -1,4 +1,4 @@
-This was my 9th grade tsa project and its been abondoned for like 3 years now so you definitely shouldn't use this. 
+This was my 9th grade tsa project and its been abandoned for like 3 years now so you definitely shouldn't use this. 
 
 [npm page](https://www.npmjs.com/package/talapa)
 
